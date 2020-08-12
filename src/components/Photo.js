@@ -9,6 +9,7 @@ import {URL, KEY} from '../constants'
 function Photo(props) {
   const [photoData, setPhotoData] = useState(props); 
   const [date, setDate] = useState(Date.today());
+  const [hd, setHd] = useState(false);
 
   useEffect( () => {
     axios
@@ -22,23 +23,34 @@ function Photo(props) {
     setDate(Date.parse(date.addDays(1)))}
   const prevDate = () => {
     setDate(Date.parse(date.addDays(-1)))}
+  const specificDate = (e) => {
+    setDate(Date.parse(e.target.value));
+  }
 
-
+  const goHd = (e) => {
+    setHd(!hd);
+  }
+  if (hd) {
+    return <img src={photoData.hdurl} onClick={goHd} />
+  }
+  if (!photoData.url) {
+    return <div className='spinner'>--+--</div> 
+  }
   return (
-    <figure>
+    <section className='photo-body'>
       <figcaption>
-        <Title title={photoData.title} date={photoData.date} />
+        <Title title={photoData.title} date={photoData.date} specificDate={specificDate} />
       </figcaption>
       <div className='photo-container'>
         <button className='left-button' onClick={prevDate}>{'<'}</button>
-        <img src={photoData.url} alt={photoData.title} />
+        <img src={photoData.url} alt={photoData.title} onClick={goHd} />
         {
         !date.equals(Date.today()) &&
         <button className='right-button' onClick={nextDate}>{'>'}</button>
         }
       </div>
       <p>{photoData.explanation}</p>
-    </figure>
+    </section>
   )
 }
 
