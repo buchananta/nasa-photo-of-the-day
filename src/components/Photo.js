@@ -9,7 +9,7 @@ const photoContainer = styled.div`
 
 function Photo({photoData, prevDate, nextDate}) {
   const [hd, setHd] = useState(false);
-  const [btns, setBtns] = useState(true);
+  const [hidden, setHidden] = useState(true);
 
   //remove the UI and just show a big image!  
   const goHd = (e) => {
@@ -35,16 +35,16 @@ function Photo({photoData, prevDate, nextDate}) {
            {/*check if iframe exists, if it does, disable carousel buttons*/}
            {/*Because otherwise it triggers a render the iframe each enter/exit*/}
       <div className='photo-container'
-           onMouseEnter={() => !document.querySelector('iframe') && setBtns(false)}
-           onMouseLeave={() => setBtns(true)}
+           onMouseEnter={() => !document.querySelector('iframe') && setHidden(false)}
+           onMouseLeave={() => setHidden(true)}
            > 
-        <LeftButton btns={btns} prevDate={prevDate} />
+        <LeftButton hidden={hidden} prevDate={prevDate} />
         {photoData.url.includes('youtube') ? <YoutubeFrame /> :
         <img src={photoData.url}
              alt={photoData.title}
              onClick={goHd}
         />}
-        <RightButton btns={btns} nextDate={nextDate} />
+        <RightButton hidden={hidden} nextDate={nextDate} />
       </div>
       <p>{photoData.explanation}</p>
     </section>

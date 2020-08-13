@@ -7,6 +7,9 @@ const StyledBtn = styled.button`
   padding: 1em;
   border: none;
   width: 150px;
+
+  ${({hidden}) => hidden && 'display: none'};
+
 `
 const BtnLeft = styled(StyledBtn)`
   transform: translate(100%);
@@ -16,12 +19,12 @@ const BtnRight = styled(StyledBtn)`
 `
 
 
-function LeftButton({prevDate, btns}) {
-  return <BtnLeft className={btns && "hidden"} onClick={prevDate}>{'<'}</BtnLeft>
+function LeftButton({prevDate, hidden}) {
+  return <BtnLeft hidden={hidden} onClick={prevDate}>{'<'}</BtnLeft>
 }
 
-function RightButton({nextDate, btns}) {
-  return <BtnRight className={btns && "hidden"}
+function RightButton({nextDate, hidden}) {
+  return <BtnRight hidden={hidden}
                    onClick={nextDate}
                    >{'>'}</BtnRight>
 }
