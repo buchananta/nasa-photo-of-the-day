@@ -13,6 +13,17 @@
   }
 }
 
+.photo-container{
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.photo-body{
+  display: flex;
+  flex-direction: column;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +46,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.hidden {
+  display: none;
 }

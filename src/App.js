@@ -15,7 +15,9 @@ function App() {
 //and The other in the Title
 //But I think I'd rather keep the logic together here
   const nextDate = () => {
-    setDate(Date.parse(date.addDays(1)))}
+    //don't advance dates into the future
+    if (!date.equals(Date.today()))
+      setDate(Date.parse(date.addDays(1)))}
   const prevDate = () => {
     setDate(Date.parse(date.addDays(-1)))}
   const specificDate = (e) => {

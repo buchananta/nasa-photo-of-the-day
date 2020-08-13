@@ -1,7 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function Title(props) {
   const { title, date, specificDate } = props;
+
 
 
   return (
