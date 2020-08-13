@@ -1,28 +1,43 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
+import axios from 'axios';
+import {URL, KEY} from './constants'
 import "./App.css";
+import {} from 'datejs'
 import Photo from './components/Photo'
-
+import Header from './components/Header'
+import Title from './components/Title'
 function App() {
-  //I think I will have a header component, but inside the app function, just to make it cleaner
-  //and then everything else can go into the Photo Component
-  //and all the API calls and everything can sit in there, keeping this clean.
-  //I will probably put title/date and explanation components inside there as well
-  //finally, I'd like to have buttons for next/previous dates!
-  //clicking the image should open up the HD image in a new window.. but that's easy.
-  const Header = () => {
-    return (
-      <header>
-        <img src='https://api.nasa.gov/assets/img/favicons/favicon-192.png' alt='NASA logo' />
-        <h1>NASA Photo of the Day</h1>
-      </header>
-    )
+  const [photoData, setPhotoData] = useState({}); 
+  const [date, setDate] = useState(Date.today());
+
+//Date Changing functions..
+//I could put two in with the buttons
+//and The other in the Title
+//But I think I'd rather keep the logic together here
+  const nextDate = () => {
+    setDate(Date.parse(date.addDays(1)))}
+  const prevDate = () => {
+    setDate(Date.parse(date.addDays(-1)))}
+  const specificDate = (e) => {
+    setDate(Date.parse(e.target.value));
   }
 
+  useEffect( () => {
+    axios
+      .get(`${URL}/planetary/apod?api_key=${KEY}&date=${date.toString('yyyy-MM-dd')}`)
+        .then(res => setPhotoData(res.data))
+        .catch(e => console.log('ERROR:' + e))
+  }, [date])
 
+if (!photoData.url) {
+  return <div className='spinner'>--+--</div>
+}
+  
   return (
     <div className="App">
       <Header />
-      <Photo />
+      <Title title={photoData.title} date={photoData.date} specificDate={specificDate} />
+      <Photo photoData={photoData} prevDate={prevDate} nextDate={nextDate} date={date} />
     </div>
   );
 }
