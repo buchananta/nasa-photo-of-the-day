@@ -6,7 +6,9 @@ const StyledBtn = styled.button`
   color: white;
   padding: 1em;
   border: none;
+  min-width: 150px;
   width: 150px;
+  margin-bottom: 1.6em;
 
   ${({hidden}) => hidden && 'display: none'};
 

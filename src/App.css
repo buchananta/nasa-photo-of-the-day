@@ -13,12 +13,6 @@
   }
 }
 
-.photo-container{
-  display: flex;
-  justify-content: center;
-  width: auto;
-}
-
 .photo-body{
   display: flex;
   flex-direction: column;

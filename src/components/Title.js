@@ -13,9 +13,17 @@ const StyledTitle = styled.div`
   input {
     font-size: 1em;
     font-weight: 600;
+    text-align: right;
     color: #FC3D21;
     height: 1.5em;
+    width: 10em;
     border: none;
+  }
+  h2 {
+    padding-top: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 `
 function Title(props) {
